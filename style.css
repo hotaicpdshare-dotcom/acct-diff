@@ -1,0 +1,125 @@
+:root {
+  --bg: #eef2f8; --card: #ffffff; --ink: #1d2433; --muted: #5d6779; --line: #d5dbe5;
+  --blue: #1f63d6; --blue-ink: #ffffff; --chip: #f2f4f8;
+  --ok: #237a3b; --ok-bg: #e7f5ea; --more: #b45309; --more-bg: #fff3e0; --less: #c62828; --less-bg: #fdecec;
+  --hand: #c62828;
+  --shadow: 0 6px 24px rgba(30, 50, 90, .08);
+  color-scheme: light;   /* 11/19 使用者：一律淺色，不跟手機深色模式 */
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-size: 16px; line-height: 1.5;
+}
+.container { max-width: 520px; margin: 0 auto; padding: max(12px, env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom)); }
+
+.topbar { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+.update {
+  background: var(--card); border-radius: 14px; padding: 8px 14px; text-align: right; box-shadow: var(--shadow);
+  font-size: .88rem; color: var(--muted); font-weight: 600;
+}
+.update .state { display: block; font-size: .95rem; }
+.update .state.ok { color: var(--ok); }
+.update .state.bad { color: var(--less); }
+
+.search-card { background: var(--card); border-radius: 24px; padding: 24px 20px 20px; box-shadow: var(--shadow); text-align: center; }
+h1 { margin: 0; font-size: 1.75rem; letter-spacing: .02em; }
+.hint { margin: 4px 0 18px; color: var(--muted); }
+.input-wrap { display: flex; align-items: center; gap: 8px; border: 2px solid var(--line); border-radius: 16px; padding: 6px 6px 6px 14px; background: var(--card); }
+.input-wrap:focus-within { border-color: var(--blue); }
+.keyword {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink);
+  font-size: 1.3rem; padding: 8px 0; font-family: inherit; letter-spacing: .03em;
+}
+.keyword::placeholder { color: #9aa3b2; font-size: 1.05rem; letter-spacing: 0; }
+.keyword:disabled { opacity: .5; }
+.kb { flex: none; border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 12px; padding: 10px 12px; font-weight: 700; font-size: .95rem; }
+/* 11/19 輸入建議（同 991 查詢頁）：開頭符合排前面、中間符合排後面，符合的字加粗加黃底 */
+.suggest-list { margin-top: 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); overflow: hidden; text-align: left; }
+.suggest-list[hidden] { display: none; }
+.suggest-group { padding: 6px 14px; background: var(--chip); color: var(--muted); font-size: .82rem; font-weight: 700; }
+.suggest-item {
+  display: block; width: 100%; min-height: 46px; padding: 10px 14px; border: 0; border-top: 1px solid var(--line);
+  background: var(--card); color: var(--muted); font-size: 1.15rem; font-weight: 500; letter-spacing: .03em; text-align: left;
+  font-family: inherit; cursor: pointer; touch-action: manipulation; -webkit-appearance: none;
+}
+.suggest-group + .suggest-item { border-top: 0; }
+.suggest-item:active { background: #e8f0fe; }
+.suggest-item mark { padding: 0 1px; border-radius: 3px; background: #fde293; color: var(--ink); font-weight: 850; }
+.suggest-more { padding: 8px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+.go {
+  width: 100%; margin-top: 12px; border: 0; border-radius: 16px; background: var(--blue); color: var(--blue-ink);
+  font-size: 1.2rem; font-weight: 800; padding: 15px; letter-spacing: .3em; text-indent: .3em;
+}
+.go:active { filter: brightness(.92); }
+.go:disabled { opacity: .55; }
+.recent { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+.recent:empty { display: none; }
+.recent button { border: 0; background: var(--chip); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: .9rem; font-family: ui-monospace, Menlo, Consolas, monospace; }
+
+.msg { margin: 16px 4px 0; font-weight: 700; text-align: center; }
+.msg:empty { display: none; }
+.msg.err { color: var(--less); }
+.msg.info { color: var(--muted); font-weight: 500; }
+
+.result { margin-top: 16px; display: grid; gap: 14px; }
+.card { background: var(--card); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.owner { font-size: 1.05rem; font-weight: 800; }
+.owner .tag { display: inline-block; min-width: 2em; text-align: center; background: var(--blue); color: var(--blue-ink); border-radius: 8px; padding: 0 8px; margin-right: 6px; }
+.pno { color: var(--muted); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95rem; word-break: break-all; }
+
+.verdict { border-radius: 20px; padding: 18px 16px; text-align: center; font-weight: 900; box-shadow: var(--shadow); }
+.verdict .big { font-size: 1.7rem; line-height: 1.25; }
+.verdict .small { margin-top: 4px; font-size: .95rem; font-weight: 700; }
+.verdict.hand { background: var(--hand); color: #fff; }
+.verdict.fine { background: var(--ok-bg); color: var(--ok); }
+
+.diff { margin-top: 12px; border-radius: 16px; padding: 14px 16px; text-align: center; }
+.diff .label { font-size: .9rem; font-weight: 700; }
+.diff .num { font-size: 2.6rem; font-weight: 900; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.diff .say { font-weight: 700; }
+.diff.ok { background: var(--ok-bg); color: var(--ok); }
+.diff.more { background: var(--more-bg); color: var(--more); }
+.diff.less { background: var(--less-bg); color: var(--less); }
+
+.books { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.book { background: var(--chip); border-radius: 14px; padding: 10px 12px; }
+.book .k { font-size: .85rem; color: var(--muted); font-weight: 700; }
+.book .v { font-size: 1.4rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.book .v small { font-size: .85rem; font-weight: 600; color: var(--muted); margin-left: 2px; }
+
+details.pos { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+details.pos summary { cursor: pointer; font-weight: 700; color: var(--muted); list-style: none; }
+details.pos summary::-webkit-details-marker { display: none; }
+details.pos summary::after { content: " ▾"; }
+details.pos[open] summary::after { content: " ▴"; }
+.pos-list { margin: 8px 0 0; padding: 0; list-style: none; }
+.pos-list li { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .98rem; }
+.pos-list li:last-child { border-bottom: 0; }
+.note { margin-top: 10px; font-size: .9rem; color: var(--muted); }
+
+.total { border: 2px dashed var(--line); background: transparent; box-shadow: none; }
+
+/* ---- 11/19 HOPES 暫存 ---- */
+.sus { margin-top: 12px; border: 1px solid #f0d9a8; border-radius: 14px; overflow: hidden; background: #fffaf0; }
+.sus-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #fff1d6; color: #8a5300; font-weight: 800; }
+.sus-head b { font-variant-numeric: tabular-nums; }
+.sus-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 10px 14px; border-top: 1px solid #f3e3c2; }
+.sus-row .ship { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; font-size: 1rem; word-break: break-all; }
+.sus-row .qty { grid-row: span 2; align-self: center; font-size: 1.3rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+.sus-row .qty small { font-size: .8rem; font-weight: 600; color: var(--muted); margin-left: 2px; }
+.sus-row .meta { color: var(--muted); font-size: .9rem; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.sus-row .cat { background: #fff; border: 1px solid #ecd3a0; color: #8a5300; border-radius: 999px; padding: 0 8px; font-weight: 700; font-size: .82rem; }
+.sus-none { margin-top: 12px; color: var(--muted); font-size: .9rem; }
+
+/* ---- 11/19 非自動倉零件 ---- */
+.verdict.other { background: #e8eef9; color: #1f4f9e; }
+.verdict.other .small { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.15rem; }
+.loc-box { margin-top: 12px; border-radius: 16px; padding: 14px 16px; text-align: center; background: #e8eef9; color: #1f4f9e; }
+.loc-box .k { font-size: .9rem; font-weight: 700; }
+.loc-box .v { font-size: 2rem; font-weight: 900; font-family: ui-monospace, Menlo, Consolas, monospace; letter-spacing: .04em; word-break: break-all; }
+.loc-box .s { font-weight: 700; font-size: .9rem; }
+.books.one { grid-template-columns: 1fr; }
