@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#1769e0">
+  <meta name="color-scheme" content="light only">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>帳差查詢</title>
+  <link rel="stylesheet" href="style.css?v=20261119-suggest">
+</head>
+<body>
+  <main class="container">
+    <div class="topbar">
+      <div class="update" id="update">
+        <span id="updTime">資料時間：讀取中</span>
+        <span class="state" id="updState">● 讀取中</span>
+      </div>
+    </div>
+
+    <section class="search-card">
+      <h1>帳差查詢</h1>
+      <p class="hint">撿到零件，輸入件號，看有沒有帳差</p>
+      <form id="form" autocomplete="off">
+        <div class="input-wrap">
+          <input id="kw" class="keyword" type="text" inputmode="numeric" enterkeyhint="search"
+            autocapitalize="characters" spellcheck="false" placeholder="例如：9030107020">
+          <button id="kb" class="kb" type="button" aria-label="切換成英文鍵盤">ABC</button>
+        </div>
+        <div id="suggestList" class="suggest-list" role="listbox" aria-label="符合的零件件號" hidden></div>
+        <button id="go" class="go" type="submit">查詢</button>
+      </form>
+      <div class="recent" id="recent"></div>
+    </section>
+
+    <p class="msg" id="msg" role="status"></p>
+    <section class="result" id="result"></section>
+  </main>
+  <script src="app.js?v=20261119-suggest" defer></script>
+</body>
+</html>
